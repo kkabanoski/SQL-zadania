@@ -1,0 +1,32 @@
+SELECT * FROM dania where cena BETWEEN 10 and 20;
+SELECT id,nazwa, cena FROM dania WHERE cena BETWEEN 20 and 30
+SELECT nazwa FROM dania WHERE nazwa LIKE 'G%'
+SELECT nazwa FROM dania WHERE nazwa LIKE '%a%'
+SELECT nazwa FROM dania WHERE typ = 1
+SELECT nazwa FROM dania WHERE typ IS NOT NULL
+SELECT nazwa FROM dania WHERE typ IS NULL
+SELECT nazwa FROM dania WHERE nazwa IS NOT NULL
+SELECT * FROM gromady where nazwa like 'r%'
+SELECT * FROM gromady where opis IS NULL
+SELECT * FROM gromady where opis IS NOT NULL
+SELECT * FROM odzywianie WHERE rodzaj LIKE 'd%'
+SELECT * FROM odzywianie WHERE informacja IS NULL
+SELECT * FROM odzywianie WHERE informacja IS NOT NULL
+SELECT tresc FROM ogloszenie WHERE kategoria = 1
+SELECT tresc FROM ogloszenie WHERE tytul like '%Daniel%'
+SELECT tresc FROM ogloszenie WHERE tresc like '%sprzedam%'
+SELECT tresc FROM ogloszenie WHERE podkategoria BETWEEN 12 AND 14
+SELECT tresc FROM ogloszenie WHERE uzytkownik_id IS NOT NULL
+SELECT tresc FROM ogloszenie WHERE uzytkownik_id IS NULL
+SELECT * FROM podzespoly WHERE cena BETWEEN 150 AND 300
+SELECT * FROM podzespoly WHERE dostepnosc = 1
+SELECT * FROM podzespoly WHERE nazwa LIKE 'Core%'
+SELECT * FROM podzespoly WHERE opis LIKE '%DDR3%'
+SELECT * FROM podzespoly WHERE cena BETWEEN 300 and 600
+SELECT * FROM podzespoly WHERE dostepnosc IS NULL
+SELECT * FROM podzespoly WHERE dostepnosc IS NOT NULL
+SELECT imie,nazwisko FROM pracownicy WHERE stanowisko = 2
+SELECT imie,nazwisko FROM pracownicy WHERE imie LIKE 'A%'
+SELECT imie,nazwisko FROM pracownicy WHERE nazwisko LIKE '%a'
+SELECT imie,nazwisko FROM pracownicy WHERE stanowisko BETWEEN 2 and 3
+SELECT imie,nazwisko FROM pracownicy WHERE nazwisko IS NOT NULL
