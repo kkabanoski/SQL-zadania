@@ -30,3 +30,21 @@ SELECT imie,nazwisko FROM pracownicy WHERE imie LIKE 'A%'
 SELECT imie,nazwisko FROM pracownicy WHERE nazwisko LIKE '%a'
 SELECT imie,nazwisko FROM pracownicy WHERE stanowisko BETWEEN 2 and 3
 SELECT imie,nazwisko FROM pracownicy WHERE nazwisko IS NOT NULL
+SELECT * FROM typy where kategoria LIKE 'P%'
+SELECT * FROM typy where opis is null
+SELECT * FROM typy where opis is not null
+SELECT * FROM uczniowie WHERE wiek BETWEEN 9 AND 11
+SELECT * FROM uczniowie WHERE imie LIKE 'K%'
+SELECT * FROM uczniowie WHERE nazwisko LIKE 'a%'
+SELECT * FROM uczniowie WHERE wiek is not null
+SELECT * FROM uzytkownik WHERE email LIKE '%@poczta.pl'
+SELECT * FROM uzytkownik WHERE telefon LIKE '60%'
+SELECT * FROM uzytkownik WHERE nazwisko LIKE 'N%'
+SELECT * FROM uzytkownik WHERE email is null
+SELECT * FROM uzytkownik WHERE email is not null
+SELECT * FROM wyniki WHERE wynik BETWEEN 11.50 AND 12.00 
+SELECT * FROM wyniki WHERE dataUstanowienia BETWEEN "2015-10-06" and "2015-10-14" 
+SELECT * FROM wyniki WHERE dataUstanowienia LIKE "%2015-10-%"
+SELECT * FROM wyniki WHERE dyscyplina_id is not null
+SELECT * FROM zamowienia WHERE dataZam = "2016-02-15"
+SELECT * FROM zwierzeta WHERE wystepowanie LIKE '%Europa%'
