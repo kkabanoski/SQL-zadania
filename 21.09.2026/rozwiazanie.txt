@@ -1,1 +1,21 @@
-s
+SELECT COUNT(*) FROM pracownicy 
+SELECT COUNT(*) FROM pracownicy WHERE pesel is not null
+SELECT COUNT(*) FROM pracownicy WHERE stanowisko = "sprzedawca"
+SELECT AVG(placa) FROM pracownicy 
+SELECT MAX(placa) FROM pracownicy 
+SELECT MIN(placa) FROM pracownicy 
+SELECT AVG(placa), MAX(placa), MIN(placa) FROM pracownicy 
+SELECT AVG(placa), MAX(placa), MIN(placa) FROM pracownicy WHERE stanowisko = "sprzedawca"
+SELECT SUM(placa) FROM pracownicy 
+SELECT SUM(placa) FROM pracownicy where stanowisko = "sprzedawca"
+SELECT AVG(prod_cena) FROM produkty
+SELECT COUNT(prod_id) FROM produkty
+SELECT COUNT(dost_woj) FROM dostawcy WHERE dost_woj = null
+SELECT SUM(cena_elem) FROM elementyzamowienia WHERE zam_numer = 20005
+SELECT MIN(cena),Max(cena),AVG(cena) FROM uslugi
+SELECT AVG(ocena) FROM ranking 
+SELECT MIN(ocena),id FROM ranking 
+SELECT MAX(ocena),id FROM ranking 
+SELECT COUNT(oscar) FROM ranking 
+SELECT AVG(dlugosc) FROM film
+SELECT MIN(rok),MAX(rok) FROM film
