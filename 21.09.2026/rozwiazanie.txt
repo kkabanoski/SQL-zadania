@@ -19,3 +19,25 @@ SELECT MAX(ocena),id FROM ranking
 SELECT COUNT(oscar) FROM ranking 
 SELECT AVG(dlugosc) FROM film
 SELECT MIN(rok),MAX(rok) FROM film
+SELECT COUNT(tytul) FROM film WHERE rok < 2000
+SELECT AVG(dlugosc) FROM film WHERE rok > 2000
+SELECT COUNT(id) FROM rezyser
+SELECT COUNT(email) FROM klienci WHERE email IS NULL
+SELECT COUNT(telefon) FROM klienci WHERE telefon IS NULL
+SELECT COUNT(*) FROM klienci WHERE miasto = 'Lublin'
+SELECT AVG(Cena) FROM ksiazki 
+SELECT MIN(Cena),MAX(Cena) FROM ksiazki
+SELECT AVG(wynagrodzenie) FROM pracownicy WHERE id_stanowiska = 3
+SELECT AVG(wynagrodzenie) FROM pracownicy WHERE imie LIKE '%a'
+SELECT SUM(wynagrodzenie) FROM pracownicy 
+SELECT AVG(wynagrodzenie) FROM pracownicy 
+SELECT COUNT(id_wydawnictwa) FROM wydawnictwa WHERE wydawnictwo LIKE 'Z%' OR 'S%' 
+SELECT AVG(Cena) FROM ksiazki WHERE id_gatunku = 3  
+SELECT AVG(wynagrodzenie) FROM pracownicy WHERE id_stanowiska = 6 OR nazwisko LIKE '%Nowak%'  
+SELECT AVG(cena)"Srednia cena podzespolow" FROM podzespoly
+SELECT SUM(cena) FROM podzespoly
+SELECT AVG(cena) FROM dania WHERE typ = 2 
+SELECT AVG(cena) FROM dania WHERE typ = 3
+SELECT AVG(wynik) FROM wyniki WHERE dyscyplina_id = 3
+SELECT AVG(cena) FROM podzespoly WHERE typy_id = 1
+SELECT MAX(cena),MIN(cena) FROM podzespoly 
