@@ -20,3 +20,5 @@ SELECT id_prac, nazwisko, imie, year(zatrudniony) FROM pracownicy WHERE year(zat
 SELECT id_prac, nazwisko, imie FROM pracownicy WHERE nazwisko LIKE "%a%"
 SELECT id_prac, nazwisko, imie FROM pracownicy WHERE nazwisko LIKE "K%" AND nazwisko LIKE "%i"
 SELECT id_zesp, COUNT(id_zesp) FROM pracownicy GROUP BY id_zesp HAVING COUNT(id_zesp) > 3;
+SELECT id_prac,imie,nazwisko,MIN(placa_pod + placa_dod) FROM pracownicy GROUP by placa_pod + placa_dod
+SELECT id_zesp, COUNT(id_zesp) FROM pracownicy GROUP BY id_zesp ORDER BY count(id_zesp) DESC
