@@ -1,16 +1,41 @@
-SELECT * FROM klienci WHERE data_rejestracji > "2020-01-01"
-SELECT * FROM opinie where ocena = 5
-SELECT * FROM  platnosci WHERE metoda_platnosci = "karta"
-SELECT * FROM faktury where kwota_calosci > 400
+SELECT * FROM klienci WHERE data_rejestracji > "2020-01-01";
+SELECT * FROM opinie where ocena = 5;
+SELECT * FROM  platnosci WHERE metoda_platnosci = "karta";
+SELECT * FROM faktury where kwota_calosci > 400;
 
-SELECT * from Klienci where imie like 'K%'
-SELECT * from faktury where zaplacono = 'tak'
-SELECT * from opinie where YEAR(data_opinii) = 2023 and ocena >= 4
-SELECT * from platnosci where kwota between 400 and 700
-SELECT * from klienci k INNER JOIN opinie o ON k.id_klienta = o.id_klienta order by k.id_klienta ASC
+SELECT * from Klienci where imie like 'K%';
+SELECT * from faktury where zaplacono = 'tak';
+SELECT * from opinie where YEAR(data_opinii) = 2023 and ocena >= 4;
+SELECT * from platnosci where kwota between 400 and 700;
+SELECT * from klienci k INNER JOIN opinie o ON k.id_klienta = o.id_klienta order by k.id_klienta ASC;
 
-SELECT k.*FROM klienci k JOIN wypozyczenia w ON k.id_klienta = w.id_klienta JOIN faktury f ON w.id_wypozyczenia = f.id_wypozyczenia WHERE YEAR(w.data_wypozyczenia) = 2023 and f.zaplacono = 'tak'
-SELECT * from faktury where kwota_calosci > 500 and zaplacono = 'nie'
-SELECT k.id_klienta, k.imie, k.nazwisko FROM klienci k INNER JOIN wypozyczenia w ON k.id_klienta = w.id_klienta INNER JOIN faktury f ON w.id_wypozyczenia = f.id_wypozyczenia INNER JOIN platnosci p ON f.id_faktury = p.id_faktury WHERE p.metoda_platnosci = "gotówka" or "przelew"
+SELECT k.*FROM klienci k JOIN wypozyczenia w ON k.id_klienta = w.id_klienta JOIN faktury f ON w.id_wypozyczenia = f.id_wypozyczenia WHERE YEAR(w.data_wypozyczenia) = 2023 and f.zaplacono = 'tak';
+SELECT * from faktury where kwota_calosci > 500 and zaplacono = 'nie';
+SELECT k.id_klienta, k.imie, k.nazwisko FROM klienci k INNER JOIN wypozyczenia w ON k.id_klienta = w.id_klienta INNER JOIN faktury f ON w.id_wypozyczenia = f.id_wypozyczenia INNER JOIN platnosci p ON f.id_faktury = p.id_faktury WHERE p.metoda_platnosci = "gotówka" or "przelew";
 SELECT f.id_faktury, f.id_wypozyczenia FROM faktury f JOIN wypozyczenia w ON f.id_wypozyczenia = w.id_wypozyczenia JOIN opinie o ON w.id_samochodu = o.id_samochodu WHERE o.ocena < 4;
 SELECT k.id_klienta, k.imie, k.nazwisko, k.email, COUNT(o.id_opinii) AS liczba_opinii FROM Klienci k JOIN Opinie o ON k.id_klienta = o.id_klienta GROUP BY k.id_klienta, k.imie, k.nazwisko, k.email HAVING COUNT(o.id_opinii) >= 2;
+Grupowanie danych
+SELECT k.id_klienta,k.imie,k.nazwisko,COUNT(f.id_faktury) AS liczba_faktur FROM Klienci k LEFT JOIN Wypozyczenia w ON k.id_klienta = w.id_klienta LEFT JOIN Faktury f ON w.id_wypozyczenia = f.id_wypozyczenia GROUP BY k.id_klienta, k.imie, k.nazwisko;
+SELECT k.id_klienta,k.imie,k.nazwisko,COUNT(o.id_opinii) AS liczba_opinii FROM Klienci k LEFT JOIN Opinie o ON k.id_klienta = o.id_klienta GROUP BY k.id_klienta, k.imie, k.nazwisko;
+SELECT metoda_platnosci,ROUND(AVG(kwota), 2) AS srednia_kwota FROM Platnosci GROUP BY metoda_platnosci;
+SELECT MONTH(data_platnosci) AS miesiac,COUNT(id_platnosci) AS liczba_platnosci FROM Platnosci WHERE YEAR(data_platnosci) = 2023 GROUP BY MONTH(data_platnosci) ORDER BY miesiac;
+
+SELECT k.id_klienta,k.imie,k.nazwisko,COUNT(p.id_platnosci) AS liczba_platnosci FROM Klienci k JOIN Wypozyczenia w ON k.id_klienta = w.id_klienta JOIN Faktury f ON w.id_wypozyczenia = f.id_wypozyczenia JOIN Platnosci p ON f.id_faktury = p.id_faktury GROUP BY k.id_klienta, k.imie, k.nazwisko HAVING COUNT(p.id_platnosci) >= 2;
+SELECT s.id_samochodu,s.marka,s.model,ROUND(AVG(o.ocena), 2) AS srednia_ocena FROM Samochody s JOIN Opinie o ON s.id_samochodu = o.id_samochodu GROUP BY s.id_samochodu, s.marka, s.model ORDER BY srednia_ocena DESC;
+nie ma kolumny Miejscowość tylko adres i miejscowość jest w jednej kolumnie
+SELECT k.id_klienta,k.imie,k.nazwisko,ROUND(AVG(o.ocena), 2) AS srednia_wystawionych_ocen,COUNT(o.id_opinii) AS liczba_opinii FROM Klienci k JOIN Opinie o ON k.id_klienta = o.id_klienta GROUP BY k.id_klienta, k.imie, k.nazwisko HAVING AVG(o.ocena) >= 4 ORDER BY srednia_wystawionych_ocen DESC;
+SELECT YEAR(data_faktury) AS rok,MONTH(data_faktury) AS miesiac,COUNT(id_faktury) AS liczba_faktur FROM Faktury GROUP BY YEAR(data_faktury), MONTH(data_faktury) ORDER BY rok DESC, miesiac DESC;
+SELECT k.id_klienta,k.imie,k.nazwisko ROUND(AVG(f.kwota_calosci), 2) AS srednia_kwota_faktury COUNT(f.id_faktury) AS liczba_faktur FROM Klienci k JOIN Wypozyczenia w ON k.id_klienta = w.id_klienta JOIN Faktury f ON w.id_wypozyczenia = f.id_wypozyczenia GROUP BY k.id_klienta, k.imie, k.nazwisko HAVING AVG(f.kwota_calosci) > 600 ORDER BY srednia_kwota_faktury DESC;
+
+--łączenie tabel
+SELECT f.id_faktury,f.data_faktury,f.kwota_calosci AS kwota_faktury,f.zaplacono,p.id_platnosci,p.data_platnosci,p.kwota AS kwota_wplaty,p.metoda_platnosci FROM Faktury f LEFT JOIN Platnosci p ON f.id_faktury = p.id_faktury ORDER BY f.id_faktury DESC;
+SELECT k.id_klienta,k.imie,k.nazwisko,s.marka,s.model,o.ocena,o.komentarz,o.data_opinii FROM Klienci k LEFT JOIN Opinie o ON k.id_klienta = o.id_klienta LEFT JOIN Samochody s ON o.id_samochodu = s.id_samochodu ORDER BY k.id_klienta;
+SELECT k.id_klienta,k.imie,k.nazwisko,k.email,f.id_faktury,f.data_faktury,f.kwota_calosci,f.zaplacono FROM Klienci k LEFT JOIN Wypozyczenia w ON k.id_klienta = w.id_klienta LEFT JOIN Faktury f ON w.id_wypozyczenia = f.id_wypozyczenia ORDER BY k.nazwisko, k.imie, f.id_faktury;
+SELECT f.id_faktury,f.id_wypozyczenia,f.data_faktury,f.kwota_calosci AS kwota_faktury,f.zaplacono AS status_faktury,p.id_platnosci,p.data_platnosci,p.kwota AS kwota_wplaty,p.metoda_platnosci FROM Faktury f LEFT JOIN Platnosci p ON f.id_faktury = p.id_faktury ORDER BY f.id_faktury ASC;
+SELECT k.id_klienta,k.imie,k.nazwisko,k.email,k.numer_telefonu FROM Klienci k JOIN Wypozyczenia w ON k.id_klienta = w.id_klienta JOIN Faktury f ON w.id_wypozyczenia = f.id_wypozyczenia JOIN Platnosci p ON f.id_faktury = p.id_faktury JOIN Opinie o ON k.id_klienta = o.id_klienta WHERE p.metoda_platnosci = 'karta' ORDER BY k.nazwisko, k.imie;
+
+SELECT k.id_klienta,k.imie,k.nazwisko,SUM(f.kwota_calosci) AS laczna_kwota_faktur FROM Klienci k JOIN Wypozyczenia w ON k.id_klienta = w.id_klienta JOIN Faktury f ON w.id_wypozyczenia = f.id_wypozyczenia GROUP BY k.id_klienta, k.imie, k.nazwisko ORDER BY k.nazwisko ASC, k.imie ASC;
+SELECT s.id_samochodu,s.marka,s.model,s.numer_rejestracyjny,ROUND(AVG(o.ocena), 2) AS srednia_ocena FROM Samochody s LEFT JOIN Opinie o ON s.id_samochodu = o.id_samochodu GROUP BY s.id_samochodu, s.marka, s.model, s.numer_rejestracyjny ORDER BY srednia_ocena DESC;
+SELECT k.id_klienta,k.imie,k.nazwisko, COUNT(DISTINCT o.id_samochodu) AS liczba_ocenionych_samochodow FROM Klienci k JOIN Opinie o ON k.id_klienta = o.id_klienta GROUP BY k.id_klienta, k.imie, k.nazwisko ORDER BY liczba_ocenionych_samochodow DESC;
+SELECT s.marka, s.model, MAX(sr.data_serwisu) AS data_ostatniego_przegladu FROM Samochody s LEFT JOIN Serwisy sr ON s.id_samochodu = sr.id_samochodu WHERE s.status = 'dostępny' GROUP BY s.id_samochodu, s.marka, s.model ORDER BY data_ostatniego_przegladu DESC;
+SELECT k.imie, k.nazwisko, w.data_wypozyczenia, w.data_zwrotu,DATEDIFF(w.data_zwrotu, w.data_wypozyczenia) AS liczba_dni_wypozyczenia,w.kwota AS wartosc_wypozyczenia FROM Wypozyczenia w JOIN Klienci k ON w.id_klienta = k.id_klienta WHERE w.data_zwrotu IS NOT NULL AND w.data_wypozyczenia BETWEEN '2023-01-01' AND '2023-12-31' ORDER BY w.data_wypozyczenia ASC;
