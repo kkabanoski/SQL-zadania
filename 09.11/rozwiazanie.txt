@@ -1,0 +1,16 @@
+SELECT * FROM klienci WHERE data_rejestracji > "2020-01-01"
+SELECT * FROM opinie where ocena = 5
+SELECT * FROM  platnosci WHERE metoda_platnosci = "karta"
+SELECT * FROM faktury where kwota_calosci > 400
+
+SELECT * from Klienci where imie like 'K%'
+SELECT * from faktury where zaplacono = 'tak'
+SELECT * from opinie where YEAR(data_opinii) = 2023 and ocena >= 4
+SELECT * from platnosci where kwota between 400 and 700
+SELECT * from klienci k INNER JOIN opinie o ON k.id_klienta = o.id_klienta order by k.id_klienta ASC
+
+SELECT k.*FROM klienci k JOIN wypozyczenia w ON k.id_klienta = w.id_klienta JOIN faktury f ON w.id_wypozyczenia = f.id_wypozyczenia WHERE YEAR(w.data_wypozyczenia) = 2023 and f.zaplacono = 'tak'
+SELECT * from faktury where kwota_calosci > 500 and zaplacono = 'nie'
+SELECT k.id_klienta, k.imie, k.nazwisko FROM klienci k INNER JOIN wypozyczenia w ON k.id_klienta = w.id_klienta INNER JOIN faktury f ON w.id_wypozyczenia = f.id_wypozyczenia INNER JOIN platnosci p ON f.id_faktury = p.id_faktury WHERE p.metoda_platnosci = "gotówka" or "przelew"
+SELECT f.id_faktury, f.id_wypozyczenia FROM faktury f JOIN wypozyczenia w ON f.id_wypozyczenia = w.id_wypozyczenia JOIN opinie o ON w.id_samochodu = o.id_samochodu WHERE o.ocena < 4;
+SELECT k.id_klienta, k.imie, k.nazwisko, k.email, COUNT(o.id_opinii) AS liczba_opinii FROM Klienci k JOIN Opinie o ON k.id_klienta = o.id_klienta GROUP BY k.id_klienta, k.imie, k.nazwisko, k.email HAVING COUNT(o.id_opinii) >= 2;
